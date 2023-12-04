@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import axios from "axios";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -14,14 +14,15 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Empty } from "@/components/empty";
-import { formSchema } from "./constants";
-import { Loader } from "@/components/loader";
-import { cn } from "@/lib/utils";
-import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
+import { Empty } from "@/components/empty";
+import { Loader } from "@/components/loader";
+import { UserAvatar } from "@/components/user-avatar";
+import { cn } from "@/lib/utils";
+import { formSchema } from "./constants";
+import ReactMarkdown from "react-markdown";
 
-const ConversationPage = () => {
+const CodePage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -42,7 +43,7 @@ const ConversationPage = () => {
       };
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       });
 
@@ -59,7 +60,7 @@ const ConversationPage = () => {
 
   return (
     <div>
-      <Heading title="Conversation" description="Our most advanced conversation model." icon={MessageSquare} iconColor="text-violet-500" bgColor="bg-violet-500/10" />
+      <Heading title="Code Generation" description="Coding Never Been Easier Before !" icon={Code} iconColor="text-green-700" bgColor="bg-green-700/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
@@ -86,7 +87,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Make me a calculator based on html and javascript"
                         {...field}
                       />
                     </FormControl>
@@ -112,11 +113,25 @@ const ConversationPage = () => {
               key={message.content}
               className={cn(
                 "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                message.role === "user" ? "bg-white border bg-violet-700/10" : "bg-violet-500 text-white"
+                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
               )}
               >
                 {message.role === "user" ? <UserAvatar/> : <BotAvatar/>}
-                <p className="text-sm">{message.content}</p>
+                <ReactMarkdown
+                components={{
+                    pre: ({ node, ...props}) => (
+                        <div className="overflow-auto w-full my-2 bg-emerald-700 text-white p-2 rounded-lg">
+                            <pre {...props}/>
+                        </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                        <code className=" bg-emerald-700 text-white rounded-lg p-1" {...props} />
+                    )
+                }}
+                className="text-sm overflow-hidden leading-7"
+                >
+                    {message.content || ""}
+                </ReactMarkdown>
                 </div>
             ))}
           </div>
@@ -126,4 +141,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
