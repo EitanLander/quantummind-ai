@@ -48,7 +48,7 @@ const VideoPage = () => {
 
   return (
     <div>
-      <Heading title="Video Generation" description="Turn Your Prompt Into A Video" icon={VideoIcon} iconColor="text-orange-500" bgColor="bg-orange-700/10" />
+      <Heading title="מפיק הסרטים" description="יוצר סרטונים לפי הדמיון שלכם (**כרגע רק באנגלית** )" icon={VideoIcon} iconColor="text-orange-500" bgColor="bg-orange-700/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
@@ -67,13 +67,14 @@ const VideoPage = () => {
                 gap-2
               "
             >
+                
               <FormField
                 name="prompt"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="m-0 p-0">
                       <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-0 px-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent text-right placeholder-black"
                         disabled={isLoading}
                         placeholder="A husky dog running in the forest"
                         {...field}
@@ -83,7 +84,7 @@ const VideoPage = () => {
                 )}
               />
               <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
+                2 - 3 אקשן
               </Button>
             </form>
           </Form>
@@ -94,7 +95,7 @@ const VideoPage = () => {
               <Loader />
             </div>
           )}
-          {!video && !isLoading && <Empty label="No Video Generated." />}
+          {!video && !isLoading && <Empty label="עוד לא צילמנו כלום , בוא נצלם" />}
           {video && (
            <video className="w-full aspect-video mt-8 rounded-lg" controls>
             <source src={video}/>

@@ -11,23 +11,23 @@ export const formSchema = z.object({
 export const amountOptions = [
     {
         value: "1",
-        label: "1 Photo",
+        label: "תמונה 1",
     },
     {
         value: "2",
-        label: "2 Photo",
+        label: "2 תמונות",
     },
     {
         value: "3",
-        label: "3 Photo",
+        label: "3 תמונות",
     },
     {
         value: "4",
-        label: "4 Photo",
+        label: "4 תמונות",
     },
     {
         value: "5",
-        label: "5 Photo",
+        label: "5 תמונות",
     },
 ];
 

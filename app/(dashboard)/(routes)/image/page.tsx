@@ -57,7 +57,7 @@ const ImagePage = () => {
 
   return (
     <div>
-      <Heading title="Image Generation" description="Turn Your Prompt Into An Image!" icon={ImageIcon} iconColor="text-pink-700" bgColor="bg-pink-700/10" />
+      <Heading title="קוואנטום פיקאסו" description="טקסט הופך לתמונה חלומית (**כרגע רק באנגלית**)" icon={ImageIcon} iconColor="text-pink-700" bgColor="bg-pink-700/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
@@ -76,21 +76,9 @@ const ImagePage = () => {
                 gap-2
               "
             >
-              <FormField
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-6">
-                    <FormControl className="m-0 p-0">
-                      <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading}
-                        placeholder="A picture of a cute Rag-Doll Cat"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+             
+             
+              
               <FormField 
               control={form.control}
               name="amount"
@@ -119,6 +107,7 @@ const ImagePage = () => {
                 </FormItem>
               )}
               />
+              
               <FormField 
               control={form.control}
               name="resolution"
@@ -147,19 +136,34 @@ const ImagePage = () => {
                 </FormItem>
               )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
+               <FormField
+                name="prompt"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-6 ">
+                    <FormControl className="m-0 p-0">
+                      <Input
+                       className="border-0 px-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent text-right placeholder-black"
+                        disabled={isLoading}
+                        placeholder="A picture of a cute Rag-Doll Cat"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+               <Button className="col-span-12 lg:col-span-2 w-full mb-2 lg:mb-0" type="submit" disabled={isLoading} size="icon">
+                צייר לי משהו
               </Button>
             </form>
           </Form>
         </div>
         <div className="space-y-4 mt-4">
           {isLoading && (
-            <div className="p-20">
+           <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
               <Loader />
             </div>
           )}
-          {images.length === 0 && !isLoading && <Empty label="No Images Generated." />}
+          {images.length === 0 && !isLoading && <Empty label="עוד לא ציירתי לך כלום, בוא נתחיל" />}
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
             {images.map((src)=> (
                 <Card 
@@ -180,7 +184,7 @@ const ImagePage = () => {
                         className="w-full"
                         >
                         <Download className="h-4 w-4 mr-2"/>
-                        Download
+                        להורדה
                         </Button>
                     </CardFooter>
                 </Card>

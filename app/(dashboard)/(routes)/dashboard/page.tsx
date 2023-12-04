@@ -5,37 +5,51 @@ import { cn } from "@/lib/utils";
 import { ArrowRight, Code, Image, MessageSquare, Music, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import { Rubik, Open_Sans } from 'next/font/google';
+
+
+const RubikFont = Rubik({
+    weight: "600",
+    subsets: ["hebrew"],
+  });
+
+  const OpenSans = Open_Sans({ 
+    weight: "800" ,
+    subsets: ["latin"]
+});
+  
+
 const tools = [
   {
-    label: "Conversation",
+    label: "צ'אט עם קוואנטום",
     icon: MessageSquare,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
     href: "/conversation",
   },
   {
-    label: "Image Generation",
+    label: "מייצר תמונות",
     icon: Image,
     color: "text-pink-600",
     bgColor: "bg-pink-600/10",
     href: "/image",
   },
   {
-    label: "Video Generation",
+    label: "מייצר וידיאו",
     icon: Video,
     color: "text-orange-600",
     bgColor: "bg-orange-600/10",
     href: "/video",
   },
   {
-    label: "Music Generation",
+    label: "נגן מוזיקה",
     icon: Music,
     color: "text-emerald-400",
     bgColor: "bg-emerald-400/10",
     href: "/music",
   },
   {
-    label: "Code Generation",
+    label: "מתכנת קוד",
     icon: Code,
     color: "text-green-600",
     bgColor: "bg-green-600/10",
@@ -46,17 +60,17 @@ const tools = [
 const DashboardPage = () => {
     const router= useRouter();
   return (
-    <div>
-      <div className="mb-8 space-y-4">
-        <h2 className="text-2xl md:text-4xl font-bold text-center">Explore the power of AI</h2>
-        <p className="text-muted-foreground font-light text-sm md:text-lg text-center">Chat with the smartest AI - Experience the power of AI</p>
+    <div className={cn("text-xl", RubikFont.className)}>
+      <div className={cn("mb-8 space-y-4", RubikFont.className)}>
+        <h2 className={cn("text-2xl md:text-4xl font-bold text-center text-shadow",OpenSans.className)}>QuanTumMind-AI</h2>
+        <p className="text-muted-foreground font-light text-sm md:text-lg text-center text-shadow">נסו וגלו עולם שלם של בינה מלאכותית - הכל במקום אחד</p>
       </div>
-      <div className="px-4 md:px-20 lg:px-32 space-y-4">
+      <div className=" p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
         {tools.map((tool) => (
           <Card
           onClick={()=> router.push(tool.href)}
           key={tool.href}
-          className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer"
+          className=" p-3 lg:p-16 border-black/5 flex items-center justify-between hover:shadow-xl hover:bg-white/50 transition cursor-pointer"
           >
             <div className="flex items-center gap-x-4">
                 <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>

@@ -59,7 +59,7 @@ const ConversationPage = () => {
 
   return (
     <div>
-      <Heading title="Conversation" description="Our most advanced conversation model." icon={MessageSquare} iconColor="text-violet-500" bgColor="bg-violet-500/10" />
+      <Heading title="צ'אט עם קוונאטום" description="השיחות הכי מעניינות, תשאלו אותי על מזג האוויר" icon={MessageSquare} iconColor="text-violet-500" bgColor="bg-violet-500/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
@@ -78,23 +78,24 @@ const ConversationPage = () => {
                 gap-2
               "
             >
+             
               <FormField
                 name="prompt"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="m-0 p-0">
                       <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-0 px-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent text-right placeholder-black"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="תגיד לי מה המרחק מכדור הארץ לירח"
                         {...field}
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
+               <Button className="col-span-12 lg:col-span-2 w-full mb-2 lg:mb-0" type="submit" disabled={isLoading} size="icon">
+                2 - 3 שגר
               </Button>
             </form>
           </Form>
@@ -105,13 +106,13 @@ const ConversationPage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && <Empty label="No conversation started." />}
+          {messages.length === 0 && !isLoading && <Empty label="עוד לא התחלנו לדבר, תכתוב לי משהו" />}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
               <div 
               key={message.content}
               className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg",
+                "p-8 w-full flex items-start gap-x-8 rounded-lg text-right",
                 message.role === "user" ? "bg-white border bg-violet-700/10" : "bg-violet-500 text-white"
               )}
               >

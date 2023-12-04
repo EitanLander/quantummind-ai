@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { MusicIcon } from "lucide-react";
+import { Headphones } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -48,7 +48,7 @@ const MusicPage = () => {
 
   return (
     <div>
-      <Heading title="Music Generation" description="Turn Your Prompt Into Music." icon={MusicIcon} iconColor="text-emerald-500" bgColor="bg-emerald-500/10" />
+      <Heading title="ג'ימי הנדריקס" description="הפכו את ההשראה למוזיקה (**כרגע רק באנגלית**)" icon={Headphones} iconColor="text-emerald-500" bgColor="bg-emerald-500/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
@@ -66,14 +66,15 @@ const MusicPage = () => {
                 grid-cols-12
                 gap-2
               "
-            >
+            >  
+            
               <FormField
                 name="prompt"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="m-0 p-0">
                       <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-0 px-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent text-right placeholder-black"
                         disabled={isLoading}
                         placeholder="Guitar Solo Like Metallica"
                         {...field}
@@ -82,8 +83,8 @@ const MusicPage = () => {
                   </FormItem>
                 )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
+            <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
+                נגן לי משהו
               </Button>
             </form>
           </Form>
@@ -94,7 +95,7 @@ const MusicPage = () => {
               <Loader />
             </div>
           )}
-          {!music && !isLoading && <Empty label="No music generated." />}
+          {!music && !isLoading && <Empty label="עוד לא נגנתי לך כלום , בוא נתחיל לכתוב" />}
           {music && (
             <audio controls className="w-full mt-8">
                 <source src={music}/>

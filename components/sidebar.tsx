@@ -1,6 +1,6 @@
 "use client";
 
-import { Montserrat } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,50 +8,51 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { CodeIcon, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, Settings, VideoIcon } from 'lucide-react';
 
-const montserrat = Montserrat({ 
+const OpenSans = Open_Sans({ 
     weight: "600" ,
     subsets: ["latin"]
 });
 
+
 const routes = [
     {
-        label: "Dashboard",
+        label: "הבינה המלאכותית",
         icon : LayoutDashboard,
         href: "/dashboard",
         color: "text-sky-500",
     },
     {
-        label: "Conversation",
+        label: "צ'אט",
         icon : MessageSquare,
         href: "/conversation",
         color: "text-violet-500",
     },
     {
-        label: "Image Generation",
+        label: "תמונות",
         icon : ImageIcon,
         href: "/image",
         color: "text-pink-700",
     },
     {
-        label: "Video Generation",
+        label: "וידיאו",
         icon : VideoIcon,
         href: "/video",
         color: "text-orange-700",
     },
     {
-        label: "Music Generation",
+        label: "מוזיקה",
         icon : MusicIcon,
         href: "/music",
         color: "text-emerald-500",
     },
     {
-        label: "Code Generation",
+        label: "קוד",
         icon : CodeIcon,
         href: "/code",
         color: "text-green-700",
     },
     {
-        label: "Settings",
+        label: "הגדרות",
         icon : Settings,
         href: "/settings",
         color: "text-cyan-200",
@@ -72,9 +73,9 @@ const Sidebar = () => {
         sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 800px"
       />
             </div>
-            <h1 className={cn('text-xl font-bold', montserrat.className)}>QuantumMind-AI</h1>
+            <h1 className={cn('text-xl font-bold', OpenSans.className)}>QuantumMind-AI</h1>
         </Link>
-        <div className='space-y-1'>
+        <div className={cn('space-y-1',OpenSans.className)}>
             {routes.map((route)=> (
                 <Link 
                 href={route.href}
@@ -83,10 +84,13 @@ const Sidebar = () => {
                 pathname === route.href ? "text-white bg-white/10" : "text-zinc-400"
                 )}
                 >
-                    <div className='flex items-center flex-1'>
-                        <route.icon className={cn("h-5 w-5 mr-3", route.color)}/>
-                        {route.label}
-                    </div>
+  
+  <div className='flex items-center justify-center flex-1'>
+  {route.label}
+  <route.icon className={cn("h-5 w-5 ml-3", route.color)}/>
+</div>
+
+
 
                 </Link>
             ))}

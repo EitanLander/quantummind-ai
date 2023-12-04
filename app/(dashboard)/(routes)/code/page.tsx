@@ -60,32 +60,35 @@ const CodePage = () => {
 
   return (
     <div>
-      <Heading title="Code Generation" description="Coding Never Been Easier Before !" icon={Code} iconColor="text-green-700" bgColor="bg-green-700/10" />
+      <Heading title="מתכנת קוד" description="תמיד רצית עוזר אישי ? (**כרגע רק באנגלית**)" icon={Code} iconColor="text-green-700" bgColor="bg-green-700/10" />
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="
-                rounded-lg 
-                border 
-                w-full 
-                p-4 
-                px-3 
-                md:px-6 
-                focus-within:shadow-sm
-                grid
-                grid-cols-12
-                gap-2
-              "
+      rounded-lg 
+      border 
+      w-full 
+      p-4 
+      px-3 
+      md:px-6 
+      focus-within:shadow-sm
+      grid
+      grid-cols-12
+      gap-2
+    "
             >
+              <Button className="col-span-12 lg:col-span-2 w-full mb-2 lg:mb-0" type="submit" disabled={isLoading} size="icon">
+                תתכנת לי משהו
+              </Button>
               <FormField
                 name="prompt"
                 render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
-                    <FormControl className="m-0 p-0">
+                  <FormItem className="col-span-12 lg:col-span-10 ">
+                    <FormControl className="m-0 p-0 ">
                       <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-0 px-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent text-right placeholder-black"
                         disabled={isLoading}
                         placeholder="Make me a calculator based on html and javascript"
                         {...field}
@@ -94,9 +97,6 @@ const CodePage = () => {
                   </FormItem>
                 )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
-              </Button>
             </form>
           </Form>
         </div>
@@ -106,33 +106,25 @@ const CodePage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && <Empty label="No conversation started." />}
+          {messages.length === 0 && !isLoading && <Empty label="עוד לא תכנתתי כלום היום" />}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <div 
-              key={message.content}
-              className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
-              )}
-              >
-                {message.role === "user" ? <UserAvatar/> : <BotAvatar/>}
+              <div key={message.content} className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10" : "bg-muted")}>
+                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                 <ReactMarkdown
-                components={{
-                    pre: ({ node, ...props}) => (
-                        <div className="overflow-auto w-full my-2 bg-emerald-700 text-white p-2 rounded-lg">
-                            <pre {...props}/>
-                        </div>
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="overflow-auto w-full my-2 bg-emerald-700 text-white p-2 rounded-lg">
+                        <pre {...props} />
+                      </div>
                     ),
-                    code: ({ node, ...props }) => (
-                        <code className=" bg-emerald-700 text-white rounded-lg p-1" {...props} />
-                    )
-                }}
-                className="text-sm overflow-hidden leading-7"
+                    code: ({ node, ...props }) => <code className=" bg-emerald-700 text-white rounded-lg p-1" {...props} />,
+                  }}
+                  className="text-sm overflow-hidden leading-7"
                 >
-                    {message.content || ""}
+                  {message.content || ""}
                 </ReactMarkdown>
-                </div>
+              </div>
             ))}
           </div>
         </div>
