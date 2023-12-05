@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ModalProvider } from "@/components/modal-provider";
 
 const OpenSans = Open_Sans({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={OpenSans.className}>{children}</body>
+        <body className={OpenSans.className}>
+            <ModalProvider/>
+            {children}</body>
       </html>
     </ClerkProvider>
   );
