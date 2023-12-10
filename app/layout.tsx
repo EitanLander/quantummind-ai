@@ -3,6 +3,8 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ModalProvider } from "@/components/modal-provider";
+import { ToasterProvider } from "@/components/toaster-provider";
+import { CrispProvider } from "@/components/crisp-provider";
 
 const OpenSans = Open_Sans({ subsets: ["latin"] });
 
@@ -17,9 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html lang="en">
+        <CrispProvider />
         <body className={OpenSans.className}>
             <ModalProvider/>
-            {children}</body>
+            <ToasterProvider/>
+            {children}
+            </body>
       </html>
     </ClerkProvider>
   );

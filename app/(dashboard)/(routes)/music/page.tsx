@@ -17,9 +17,10 @@ import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { formSchema } from "./constants";
 import { useProModal } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 const MusicPage = () => {
-    const proModal = useProModal();
+  const proModal = useProModal();
 
   const router = useRouter();
   const [music, setMusic] = useState<string>();
@@ -35,17 +36,18 @@ const MusicPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-        setMusic(undefined);
+      setMusic(undefined);
 
       const response = await axios.post("/api/music", values);
 
-      setMusic(response.data.audio)
+      setMusic(response.data.audio);
       form.reset();
     } catch (error: any) {
-        if(error?.response?.status === 403) {
-            proModal.onOpen();
-          }
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast.error("Something went wrong");
+      }
     } finally {
       router.refresh();
     }
@@ -71,8 +73,7 @@ const MusicPage = () => {
                 grid-cols-12
                 gap-2
               "
-            >  
-            
+            >
               <FormField
                 name="prompt"
                 render={({ field }) => (
@@ -88,7 +89,7 @@ const MusicPage = () => {
                   </FormItem>
                 )}
               />
-            <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
+              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
                 נגן לי משהו
               </Button>
             </form>
@@ -103,7 +104,7 @@ const MusicPage = () => {
           {!music && !isLoading && <Empty label="עוד לא נגנתי לך כלום , בוא נתחיל לכתוב" />}
           {music && (
             <audio controls className="w-full mt-8">
-                <source src={music}/>
+              <source src={music} />
             </audio>
           )}
         </div>

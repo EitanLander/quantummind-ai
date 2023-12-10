@@ -5,19 +5,17 @@ import { cn } from "@/lib/utils";
 import { ArrowRight, Code, Image, MessageSquare, Music, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Rubik, Open_Sans } from 'next/font/google';
-
+import { Rubik, Open_Sans } from "next/font/google";
 
 const RubikFont = Rubik({
-    weight: "600",
-    subsets: ["hebrew"],
-  });
-
-  const OpenSans = Open_Sans({ 
-    weight: "800" ,
-    subsets: ["latin"]
+  weight: "600",
+  subsets: ["hebrew"],
 });
-  
+
+const OpenSans = Open_Sans({
+  weight: "800",
+  subsets: ["latin"],
+});
 
 const tools = [
   {
@@ -58,29 +56,27 @@ const tools = [
 ];
 
 const DashboardPage = () => {
-    const router= useRouter();
+  const router = useRouter();
   return (
     <div className={cn("text-xl", RubikFont.className)}>
       <div className={cn("mb-8 space-y-4", RubikFont.className)}>
-        <h2 className={cn("text-2xl md:text-4xl font-bold text-center text-shadow",OpenSans.className)}>QuanTumMind-AI</h2>
+        <h2 className={cn("text-2xl md:text-4xl font-bold text-center text-shadow", OpenSans.className)}>QuanTumMind-AI</h2>
         <p className="text-muted-foreground font-light text-sm md:text-lg text-center text-shadow">נסו וגלו עולם שלם של בינה מלאכותית - הכל במקום אחד</p>
       </div>
       <div className=" p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
         {tools.map((tool) => (
           <Card
-          onClick={()=> router.push(tool.href)}
-          key={tool.href}
-          className=" p-3 lg:p-16 border-black/5 flex items-center justify-between hover:shadow-xl hover:bg-white/50 transition cursor-pointer"
+            onClick={() => router.push(tool.href)}
+            key={tool.href}
+            className=" p-3 lg:p-16 border-black/5 flex items-center justify-between hover:shadow-xl hover:bg-white/50 transition cursor-pointer"
           >
             <div className="flex items-center gap-x-4">
-                <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                <tool.icon className={cn("w-8 h-8", tool.color)}/>
-                </div>
-                <div className="font-semibold">
-                    {tool.label}
-                </div>
+              <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
+                <tool.icon className={cn("w-8 h-8", tool.color)} />
+              </div>
+              <div className="font-semibold">{tool.label}</div>
             </div>
-                <ArrowRight className="w-5 h-5"/>
+            <ArrowRight className="w-5 h-5" />
           </Card>
         ))}
       </div>

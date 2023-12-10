@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
-import { set } from "zod";
 
 const settingUrl = absoluteUrl("/settings");
 

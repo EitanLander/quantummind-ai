@@ -22,9 +22,10 @@ import { cn } from "@/lib/utils";
 import { formSchema } from "./constants";
 import ReactMarkdown from "react-markdown";
 import { useProModal } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 const CodePage = () => {
-    const proModal = useProModal();
+  const proModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -53,9 +54,11 @@ const CodePage = () => {
 
       form.reset();
     } catch (error: any) {
-        if(error?.response?.status === 403) {
-            proModal.onOpen();
-          }
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast.error("Something went wrong");
+      }
     } finally {
       router.refresh();
     }
@@ -64,7 +67,7 @@ const CodePage = () => {
   return (
     <div>
       <Heading title="מתכנת קוד" description="תמיד רצית עוזר אישי ? (**כרגע רק באנגלית**)" icon={Code} iconColor="text-green-700" bgColor="bg-green-700/10" />
-      <div className="px-4 lg:px-8">
+      <div className="px-4 lg:px-8 text-black">
         <div>
           <Form {...form}>
             <form

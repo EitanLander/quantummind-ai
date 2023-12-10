@@ -17,9 +17,10 @@ import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { formSchema } from "./constants";
 import { useProModal } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 const VideoPage = () => {
-    const proModal = useProModal();
+  const proModal = useProModal();
 
   const router = useRouter();
   const [video, setVideo] = useState<string>();
@@ -35,17 +36,18 @@ const VideoPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-        setVideo(undefined);
+      setVideo(undefined);
 
       const response = await axios.post("/api/video", values);
 
       setVideo(response.data[0]);
       form.reset();
     } catch (error: any) {
-        if(error?.response?.status === 403) {
-            proModal.onOpen();
-          }
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast.error("Something went wrong");
+      }
     } finally {
       router.refresh();
     }
@@ -72,7 +74,6 @@ const VideoPage = () => {
                 gap-2
               "
             >
-                
               <FormField
                 name="prompt"
                 render={({ field }) => (
@@ -102,9 +103,9 @@ const VideoPage = () => {
           )}
           {!video && !isLoading && <Empty label="עוד לא צילמנו כלום , בוא נצלם" />}
           {video && (
-           <video className="w-full aspect-video mt-8 rounded-lg" controls>
-            <source src={video}/>
-           </video>
+            <video className="w-full aspect-video mt-8 rounded-lg" controls>
+              <source src={video} />
+            </video>
           )}
         </div>
       </div>

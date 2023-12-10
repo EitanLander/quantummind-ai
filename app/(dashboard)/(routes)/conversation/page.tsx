@@ -21,9 +21,10 @@ import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 const ConversationPage = () => {
-    const proModal = useProModal();
+  const proModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -52,8 +53,10 @@ const ConversationPage = () => {
 
       form.reset();
     } catch (error: any) {
-      if(error?.response?.status === 403) {
+      if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error("Something went wrong");
       }
     } finally {
       router.refresh();
@@ -81,7 +84,6 @@ const ConversationPage = () => {
                 gap-2
               "
             >
-             
               <FormField
                 name="prompt"
                 render={({ field }) => (
@@ -97,7 +99,7 @@ const ConversationPage = () => {
                   </FormItem>
                 )}
               />
-               <Button className="col-span-12 lg:col-span-2 w-full mb-2 lg:mb-0" type="submit" disabled={isLoading} size="icon">
+              <Button className="col-span-12 lg:col-span-2 w-full mb-2 lg:mb-0" type="submit" disabled={isLoading} size="icon">
                 2 - 3 שגר
               </Button>
             </form>
@@ -112,16 +114,13 @@ const ConversationPage = () => {
           {messages.length === 0 && !isLoading && <Empty label="עוד לא התחלנו לדבר, תכתוב לי משהו" />}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <div 
-              key={message.content}
-              className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg text-right",
-                message.role === "user" ? "bg-white border bg-violet-700/10" : "bg-violet-500 text-white"
-              )}
+              <div
+                key={message.content}
+                className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg text-right", message.role === "user" ? "bg-white border bg-violet-700/10" : "bg-violet-500 text-white")}
               >
-                {message.role === "user" ? <UserAvatar/> : <BotAvatar/>}
+                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                 <p className="text-sm">{message.content}</p>
-                </div>
+              </div>
             ))}
           </div>
         </div>
