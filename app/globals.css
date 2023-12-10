@@ -6,7 +6,7 @@ html,
 body,
 :root {
   height: 100%;
-  /* background-image: url(../public/background.jpg); */
+  background-image: url(../public/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   color: rgb(255, 255, 255);
@@ -144,6 +144,6 @@ textarea {
   }
 }
 
-/* .animate-wiggle-rotate {
+.animate-wiggle-rotate {
   animation: wiggleRotate 10s infinite; 
-} */
+}
